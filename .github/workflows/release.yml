@@ -1,0 +1,14 @@
+name: Release 📦
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    uses: .github/workflows/automated-semver.yaml@main
+    secrets:
+      BOT_GPG_PRIVATE_KEY: ${{ secrets.BOT_GPG_PRIVATE_KEY }}
+      BOT_GPG_PASSPHRASE: ${{ secrets.BOT_GPG_PASSPHRASE }}
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
