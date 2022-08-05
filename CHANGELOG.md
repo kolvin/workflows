@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/kolvin/workflows/compare/v1.0.0...v1.1.0) (2022-08-05)
+
+
+### Features
+
+* **terraform:** automation workflow for terraform doc generation ([2b0b52f](https://github.com/kolvin/workflows/commit/2b0b52f68717dcb5355c5d2a5fbe8d1ab1350e97))
+
 # 1.0.0 (2022-08-04)
 
 
