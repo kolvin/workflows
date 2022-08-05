@@ -37,8 +37,8 @@ A collection of reusable github CI/CD workflows. Used personally across my own r
 - [ ] reusable terragrunt plan
 - [ ] reusable terragrunt applly
 - [ ] reusable terraform module lint
-- [ ] automate terraform module docs
-- [ ] automate release managment
+- [x] automate terraform module docs
+- [x] automate release managment
 
 
 # Contributing

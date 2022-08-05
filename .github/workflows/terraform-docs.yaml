@@ -1,0 +1,27 @@
+on: 
+  workflow_call:
+    secrets:
+      BOT_GPG_PRIVATE_KEY:
+        required: true
+      BOT_GPG_PASSPHRASE:
+        required: true
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout files
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+    - name: Render terraform docs and push changes back to PR
+      uses: terraform-docs/gh-actions@v1
+      with:
+        working-dir: .
+        output-file: README.md
+        output-method: inject
+        git-push: true
+        git-push-sign-off: true
+        git-push-user-name: "kolvin-bot"
+        git-push-user-email: "me@kolv.in"
+        git-commit-message: "docs(readme): update README.md [skip ci]"
