@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/kolvin/workflows/compare/v1.2.0...v1.3.0) (2022-08-06)
+
+
+### Bug Fixes
+
+* **worflows:** resolve bad ci syntax ([83661bf](https://github.com/kolvin/workflows/commit/83661bfce0ffc3403a82715ac3f38f870f74f246))
+
+
+### Features
+
+* **terragrunt:** reusable workflow for terragrunt lint ([979a1fe](https://github.com/kolvin/workflows/commit/979a1fe4cbcd23a8b15506c741914dd4e623ca9a))
+
 # [1.2.0](https://github.com/kolvin/workflows/compare/v1.1.0...v1.2.0) (2022-08-06)
 
 
