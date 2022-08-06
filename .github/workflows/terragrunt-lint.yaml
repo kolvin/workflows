@@ -1,0 +1,23 @@
+on: workflow_call
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: terragrunt fmt  
+        id: fmt
+        run: terragrunt fmt -check -diff
+      - name: terragrunt init
+        id: init  
+        run: terragrunt init
+      - name: cache build
+        id: cache-build
+        uses: actions/cache@v3
+        with:
+          key: ${{ github.sha }}-terragrunt-cache
+          path: |
+            **/.terragrunt-cache/**
+            **/.terraform.lock.hcl
+      - name: terragrunt validate
+        id: validate
+        run: terragrunt validate
