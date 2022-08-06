@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/kolvin/workflows/compare/v1.1.0...v1.2.0) (2022-08-06)
+
+
+### Features
+
+* **terraform:** reusable workflow for terraform install using tfenv ([20b1de0](https://github.com/kolvin/workflows/commit/20b1de0ba70727b34778943e83423930c7bd9ba1))
+
 # [1.1.0](https://github.com/kolvin/workflows/compare/v1.0.0...v1.1.0) (2022-08-05)
 
 
