@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/kolvin/workflows/compare/v1.4.0...v1.5.0) (2022-08-06)
+
+
+### Features
+
+* **terragrunt:** reusable workflow for terragrunt apply ([05cf290](https://github.com/kolvin/workflows/commit/05cf2906c1330657d23f794608097dbb59573a2b))
+
 # [1.4.0](https://github.com/kolvin/workflows/compare/v1.3.0...v1.4.0) (2022-08-06)
 
 
