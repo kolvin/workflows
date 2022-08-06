@@ -34,6 +34,7 @@ A collection of reusable github CI/CD workflows. Used personally across my own r
 # TODO
 - [x] README.md
 - [ ] reusable terragrunt install
+- [ ] reusable terragrunt lint
 - [ ] reusable terragrunt plan
 - [ ] reusable terragrunt applly
 - [x] reusable terraform install

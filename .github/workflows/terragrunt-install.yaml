@@ -1,0 +1,13 @@
+on: workflow_call
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout files
+    - uses: actions/checkout@v3
+    - name: Setup Terraform & Terragrunt
+      run: |
+        brew install tfenv warrensbox/tap/tgswitch
+        tfenv install
+        tgswitch
