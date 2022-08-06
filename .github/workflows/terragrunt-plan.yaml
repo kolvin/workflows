@@ -1,0 +1,25 @@
+on: workflow_call
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: cache build
+        id: cache-build
+        uses: actions/cache@v3
+        with:
+          key: ${{ github.sha }}-terragrunt-cache
+          path: |
+            **/.terragrunt-cache/**
+            **/.terraform.lock.hcl
+      - name: terragrunt plan
+        id: plan
+        run: |
+          terragrunt plan
+      - name: cache plan
+        id: cache-plan
+        uses: actions/cache@v3
+        with:
+          key: ${{ github.sha }}-terragrunt-plan
+          path: |
+            **/tgplan.out

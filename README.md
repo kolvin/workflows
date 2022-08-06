@@ -4,7 +4,7 @@
 
 - [Workflows](#workflows)
 - [Key Features](#key-features)
-- [TODO](#todo)
+- [Todo](#todo)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -31,11 +31,11 @@ A collection of reusable github CI/CD workflows. Used personally across my own r
 - workflow to terragrunt [apply](https://www.terraform.io/cli/commands/apply)
 
 
-# TODO
+# Todo
 - [x] README.md
 - [x] reusable terragrunt install
 - [x] reusable terragrunt lint
-- [ ] reusable terragrunt plan
+- [x] reusable terragrunt plan
 - [ ] reusable terragrunt applly
 - [x] reusable terraform install
 - [x] reusable terraform module lint
