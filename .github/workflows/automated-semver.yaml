@@ -11,6 +11,14 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    container:
+      image: ghcr.io/kolvin/semantic-release:main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout files
         uses: actions/checkout@v3
@@ -24,15 +32,10 @@ jobs:
           git_commit_gpgsign: true
           git_committer_name: "kolvin-bot"
           git_committer_email: "me@kolv.in"
-      - name: Release
-        if: success()
-        id: semantic
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          semantic_version: 19.0.3
-          extra_plugins: |
-            @semantic-release/changelog@6.0.0
-            @semantic-release/git@10.0.1
+      - name: Git workaround for actions/runner#2033
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: Semantic Release
+        run: semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIT_AUTHOR_NAME: ${{ steps.import-gpg.outputs.name }}
