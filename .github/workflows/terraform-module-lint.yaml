@@ -5,7 +5,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout files
+      uses: actions/checkout@v3
+    - name: Set up Homebrew
+      uses: Homebrew/actions/setup-homebrew@master
     - name: Setup Terraform
       run: |
         brew install tfenv 
