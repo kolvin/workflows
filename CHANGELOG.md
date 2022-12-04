@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/kolvin/workflows/compare/v1.5.0...v1.5.1) (2022-12-04)
+
+
+### Bug Fixes
+
+* **terraform:** add step to setup homebrew ([e25acb7](https://github.com/kolvin/workflows/commit/e25acb762e202f5238d1c67e4bd77842b83645af))
+
 # [1.5.0](https://github.com/kolvin/workflows/compare/v1.4.0...v1.5.0) (2022-08-06)
 
 
