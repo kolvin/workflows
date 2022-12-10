@@ -15,7 +15,7 @@ jobs:
           tgswitch -c $GITHUB_WORKSPACE
       - name: terragrunt fmt
         id: fmt
-        run: terragrunt hclfmt --terragrunt-check || cowsay "you fucked up"; exit 1
+        run: terragrunt hclfmt --terragrunt-check || ! cowsay "you fucked up"
       - name: terragrunt init
         id: init  
         run: terragrunt init
