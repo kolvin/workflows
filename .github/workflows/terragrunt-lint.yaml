@@ -4,9 +4,18 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: terragrunt fmt  
+      - name: Checkout files
+        uses: actions/checkout@v3
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+      - name: Setup Terraform & Terragrunt
+        run: |
+          brew install tfenv warrensbox/tap/tgswitch cowsay
+          tfenv install
+          tgswitch -c $GITHUB_WORKSPACE
+      - name: terragrunt fmt
         id: fmt
-        run: terragrunt fmt -check -diff
+        run: terragrunt hclfmt --terragrunt-check || cowsay "you fucked up"; exit 1
       - name: terragrunt init
         id: init  
         run: terragrunt init
