@@ -1,3 +1,10 @@
+## [1.5.6](https://github.com/kolvin/workflows/compare/v1.5.5...v1.5.6) (2022-12-10)
+
+
+### Bug Fixes
+
+* **terragrunt:** try using input value on run definitions ([e092812](https://github.com/kolvin/workflows/commit/e092812f476dffe0491796c1d47c1742e990dc00))
+
 ## [1.5.5](https://github.com/kolvin/workflows/compare/v1.5.4...v1.5.5) (2022-12-10)
 
 
