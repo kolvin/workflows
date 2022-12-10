@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/kolvin/workflows/compare/v1.5.1...v1.5.2) (2022-12-10)
+
+
+### Bug Fixes
+
+* remove useless workflows ([32a635b](https://github.com/kolvin/workflows/commit/32a635b36741bc6d75a82c7f936f1eb06e419bbd))
+
 ## [1.5.1](https://github.com/kolvin/workflows/compare/v1.5.0...v1.5.1) (2022-12-04)
 
 
