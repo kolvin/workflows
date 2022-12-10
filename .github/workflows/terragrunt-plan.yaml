@@ -5,6 +5,10 @@ on:
         required: true
         type: string
 
+defaults:
+  run:
+    working-directory: ${{ inputs.working-directory }}
+    
 jobs:
   plan:
     runs-on: ubuntu-latest
