@@ -1,9 +1,18 @@
 on: workflow_call
 
 jobs:
-  lint:
+  plan:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout files
+        uses: actions/checkout@v3
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+      - name: Setup Terraform & Terragrunt
+        run: |
+          brew install tfenv warrensbox/tap/tgswitch cowsay
+          tfenv install
+          tgswitch -c $GITHUB_WORKSPACE
       - name: cache build
         id: cache-build
         uses: actions/cache@v3
@@ -12,6 +21,12 @@ jobs:
           path: |
             **/.terragrunt-cache/**
             **/.terraform.lock.hcl
+      #  TODO: parametrize
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::943824751361:role/github-ci
+          aws-region: eu-west-1
       - name: terragrunt plan
         id: plan
         run: |
