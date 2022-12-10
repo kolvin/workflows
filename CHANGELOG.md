@@ -1,3 +1,10 @@
+## [1.5.5](https://github.com/kolvin/workflows/compare/v1.5.4...v1.5.5) (2022-12-10)
+
+
+### Bug Fixes
+
+* **terragrunt:** set working-dir to input value ([7b2be24](https://github.com/kolvin/workflows/commit/7b2be24bce44b0b70d51bd9d337f2b0ba1b461fc))
+
 ## [1.5.4](https://github.com/kolvin/workflows/compare/v1.5.3...v1.5.4) (2022-12-10)
 
 
