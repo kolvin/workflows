@@ -1,3 +1,10 @@
+## [1.5.4](https://github.com/kolvin/workflows/compare/v1.5.3...v1.5.4) (2022-12-10)
+
+
+### Bug Fixes
+
+* **terragrunt:** add working-dir input to terragrunt workflows ([4a396e0](https://github.com/kolvin/workflows/commit/4a396e01da87682679fd0464a9b42824c6fd6977))
+
 ## [1.5.3](https://github.com/kolvin/workflows/compare/v1.5.2...v1.5.3) (2022-12-10)
 
 
