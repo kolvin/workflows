@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/kolvin/workflows/compare/v1.5.2...v1.5.3) (2022-12-10)
+
+
+### Bug Fixes
+
+* **terragrunt, cowsay:** resolve bad exit code approach ([c86f2e0](https://github.com/kolvin/workflows/commit/c86f2e0446624ac0fae4f3bc582774483b683e34))
+
 ## [1.5.2](https://github.com/kolvin/workflows/compare/v1.5.1...v1.5.2) (2022-12-10)
 
 
