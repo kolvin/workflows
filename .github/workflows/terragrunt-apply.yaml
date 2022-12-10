@@ -5,10 +5,6 @@ on:
         required: true
         type: string
 
-defaults:
-  run:
-    working-directory: ${{ inputs.working-directory }}
-
 jobs:
   apply:
     runs-on: ubuntu-latest
@@ -21,7 +17,7 @@ jobs:
         run: |
           brew install tfenv warrensbox/tap/tgswitch cowsay
           tfenv install
-          tgswitch -c $GITHUB_WORKSPACE
+          tgswitch
       - name: cache build
         id: cache-build
         uses: actions/cache@v3
@@ -46,3 +42,4 @@ jobs:
       - name: terragrunt apply
         id: apply
         run: terragrunt apply
+        working-directory: ${{ inputs.working-directory }}
