@@ -1,3 +1,10 @@
+## [1.7.6](https://github.com/kolvin/workflows/compare/v1.7.5...v1.7.6) (2022-12-11)
+
+
+### Bug Fixes
+
+* **ci:** allow ci token write to contents, so workflow can post comments ([7124599](https://github.com/kolvin/workflows/commit/7124599a9d4042c2c5aba36b4e2d56ff82c26eaa))
+
 ## [1.7.5](https://github.com/kolvin/workflows/compare/v1.7.4...v1.7.5) (2022-12-11)
 
 
