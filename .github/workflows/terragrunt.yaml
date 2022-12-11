@@ -37,7 +37,6 @@ jobs:
           tfenv install
           tgswitch
       - name: Configure AWS Credentials
-        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ inputs.target-account-id }}:role/${{ inputs.ci-role-name }}
