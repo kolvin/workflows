@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/kolvin/workflows/compare/v1.6.1...v1.7.0) (2022-12-11)
+
+
+### Features
+
+* **terragrunt:** consolodate terragrunt workflows into one ([c5be6ea](https://github.com/kolvin/workflows/commit/c5be6eaf20d658ebf4d5fd0c5f745215602f1490))
+
 ## [1.6.1](https://github.com/kolvin/workflows/compare/v1.6.0...v1.6.1) (2022-12-11)
 
 
