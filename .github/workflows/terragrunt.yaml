@@ -73,7 +73,6 @@ jobs:
         env:
           PLAN: "Terragrunt\n${{ steps.plan.outputs.stdout }}"
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const output = `#### Terragrunt Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terragrunt Initialization ⚙️\`${{ steps.init.outcome }}\`
