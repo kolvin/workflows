@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/kolvin/workflows/compare/v1.7.0...v1.7.1) (2022-12-11)
+
+
+### Bug Fixes
+
+* move permissions to job level ([516a5a8](https://github.com/kolvin/workflows/commit/516a5a8abf784eb9f7941ee649410e1650a7f3bd))
+
 # [1.7.0](https://github.com/kolvin/workflows/compare/v1.6.1...v1.7.0) (2022-12-11)
 
 
