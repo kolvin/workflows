@@ -4,6 +4,19 @@ on:
       working-directory:
         required: true
         type: string
+      ci-role-name:
+        type: string
+        required: false
+        description: 'Name of the IAM role to assume'
+        default: 'gitlab-ci'
+      target-account-id:
+        required: true
+        type: string
+        description: 'A Target AWS Account ID'
+      target-region:
+        type: string
+        required: false
+        description: 'A Target AWS Region'
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -30,12 +43,11 @@ jobs:
           path: |
             **/.terragrunt-cache/**
             **/.terraform.lock.hcl
-      #  TODO: parametrize
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::943824751361:role/github-ci
-          aws-region: eu-west-1
+          role-to-assume: arn:aws:iam::${{ inputs.target-account-id }}:role/${{ inputs.ci-role-name }}
+          aws-region: ${{ inputs.target-region }}
       - name: terragrunt plan
         id: plan
         run: terragrunt plan
