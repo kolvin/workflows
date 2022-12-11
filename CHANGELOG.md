@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/kolvin/workflows/compare/v1.7.1...v1.7.2) (2022-12-11)
+
+
+### Bug Fixes
+
+* **terragrunt:** configure AWS creds before terragrunt command ([0ea8b29](https://github.com/kolvin/workflows/commit/0ea8b297f879b0496e214665211eae0af654bb6c))
+
 ## [1.7.1](https://github.com/kolvin/workflows/compare/v1.7.0...v1.7.1) (2022-12-11)
 
 
