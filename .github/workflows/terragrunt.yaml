@@ -1,0 +1,116 @@
+name: Terragrunt
+run-name: Deploy ${{ inputs.working-directory }} by @${{ github.actor }}
+
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        required: true
+        type: string
+      ci-role-name:
+        type: string
+        required: false
+        description: 'Name of the IAM role to assume'
+        default: 'github-ci'
+      target-account-id:
+        required: true
+        type: string
+        description: 'A Target AWS Account ID'
+      target-region:
+        type: string
+        required: false
+        description: 'A Target AWS Region'
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v3
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+      - name: Setup Terragrunt & Terragrunt
+        run: |
+          brew install tfenv warrensbox/tap/tgswitch cowsay
+          tfenv install
+          tgswitch
+      - name: terragrunt fmt
+        id: fmt
+        run: terragrunt hclfmt --terragrunt-check || ! cowsay "you fucked up"
+        working-directory: ${{ inputs.working-directory }}
+      - name: terragrunt init
+        id: init
+        run: terragrunt init
+        working-directory: ${{ inputs.working-directory }}
+      - name: cache build
+        id: cache-build
+        uses: actions/cache@v3
+        with:
+          key: ${{ github.sha }}-terragrunt-cache
+          path: |
+            **/.terragrunt-cache/**
+            **/.Terragrunt.lock.hcl
+      - name: terragrunt validate
+        id: validate
+        run: terragrunt validate
+        working-directory: ${{ inputs.working-directory }}
+      - name: Configure AWS Credentials
+        permissions:
+          id-token: write # This is required for requesting the JWT
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ inputs.target-account-id }}:role/${{ inputs.ci-role-name }}
+          aws-region: ${{ inputs.target-region }}
+      - name: terragrunt plan
+        if: github.event_name == 'pull_request'
+        id: plan
+        run: terragrunt plan
+        continue-on-error: true
+        working-directory: ${{ inputs.working-directory }}
+      - name: Update Pull Request
+        uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "Terragrunt\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terragrunt Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terragrunt Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terragrunt Plan 📖\`${{ steps.plan.outcome }}\`
+            #### Terragrunt Validation 🤖\`${{ steps.validate.outcome }}\`
+
+            <details><summary>Show Plan</summary>
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
+            </details>
+
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+      - name: cache plan
+        id: cache-plan
+        uses: actions/cache@v3
+        with:
+          key: ${{ github.sha }}-terragrunt-plan
+          path: |
+            **/tgplan.out
+      - name: terragrunt apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        id: apply
+        run: terragrunt apply
+        working-directory: ${{ inputs.working-directory }}
