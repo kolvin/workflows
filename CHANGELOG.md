@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/kolvin/workflows/compare/v1.6.0...v1.6.1) (2022-12-11)
+
+
+### Bug Fixes
+
+* set default role name to GITHUB not gitlab... shouldnt be coding this late fs ([c244092](https://github.com/kolvin/workflows/commit/c2440929ce4af12e32ffd906ab8635a882b14a06))
+
 # [1.6.0](https://github.com/kolvin/workflows/compare/v1.5.7...v1.6.0) (2022-12-11)
 
 
