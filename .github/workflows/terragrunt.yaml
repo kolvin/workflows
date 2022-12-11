@@ -24,8 +24,9 @@ jobs:
   run:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       id-token: write
+      pull-requests: write
     steps:
       - name: Checkout files
         uses: actions/checkout@v3
