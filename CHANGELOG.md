@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/kolvin/workflows/compare/v1.5.7...v1.6.0) (2022-12-11)
+
+
+### Features
+
+* paramterise terragrunt plan target account values ([8416f96](https://github.com/kolvin/workflows/commit/8416f96053671322f3f67bab328af65525fb27eb))
+
 ## [1.5.7](https://github.com/kolvin/workflows/compare/v1.5.6...v1.5.7) (2022-12-11)
 
 
