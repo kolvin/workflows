@@ -1,3 +1,10 @@
+## [1.7.4](https://github.com/kolvin/workflows/compare/v1.7.3...v1.7.4) (2022-12-11)
+
+
+### Bug Fixes
+
+* **terragrunt:** INCORRECT SYNTAX AGAIN ([29591f6](https://github.com/kolvin/workflows/commit/29591f6feb4c8259419fcb5a892add1fd8879832))
+
 ## [1.7.3](https://github.com/kolvin/workflows/compare/v1.7.2...v1.7.3) (2022-12-11)
 
 
