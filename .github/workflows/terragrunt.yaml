@@ -18,10 +18,11 @@ on:
         required: false
         description: 'A Target AWS Region'
 
+run-name: Deploy ${{ inputs.working-directory }} by @${{ github.actor }}
+
 jobs:
   run:
     runs-on: ubuntu-latest
-    run-name: Deploy ${{ inputs.working-directory }} by @${{ github.actor }}
     permissions:
       contents: read
       id-token: write
