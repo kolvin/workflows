@@ -1,3 +1,10 @@
+## [1.7.5](https://github.com/kolvin/workflows/compare/v1.7.4...v1.7.5) (2022-12-11)
+
+
+### Bug Fixes
+
+* **ci:** default github-script to use default scoped token ([01f7dbe](https://github.com/kolvin/workflows/commit/01f7dbe5631ac00da0542fdd0656bd45cacdd025))
+
 ## [1.7.4](https://github.com/kolvin/workflows/compare/v1.7.3...v1.7.4) (2022-12-11)
 
 
