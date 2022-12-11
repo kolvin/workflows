@@ -1,3 +1,10 @@
+## [1.5.7](https://github.com/kolvin/workflows/compare/v1.5.6...v1.5.7) (2022-12-11)
+
+
+### Bug Fixes
+
+* **terragrunt, ci:** set token permissionms ([53a3519](https://github.com/kolvin/workflows/commit/53a351914cd106560d48d0bc83eaf4c3b97d7941))
+
 ## [1.5.6](https://github.com/kolvin/workflows/compare/v1.5.5...v1.5.6) (2022-12-10)
 
 
