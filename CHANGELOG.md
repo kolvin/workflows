@@ -1,3 +1,10 @@
+## [1.7.8](https://github.com/kolvin/workflows/compare/v1.7.7...v1.7.8) (2022-12-12)
+
+
+### Bug Fixes
+
+* **terragrunt:** echo plan output stout into PR comment ([0fef960](https://github.com/kolvin/workflows/commit/0fef960ecb13f5ced36e93ea6af9c2f5b706af67))
+
 ## [1.7.7](https://github.com/kolvin/workflows/compare/v1.7.6...v1.7.7) (2022-12-11)
 
 
