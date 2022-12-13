@@ -1,3 +1,10 @@
+## [1.7.9](https://github.com/kolvin/workflows/compare/v1.7.8...v1.7.9) (2022-12-13)
+
+
+### Bug Fixes
+
+* **terragrunt:** write terragrunt output to CI ouput ([e394dc2](https://github.com/kolvin/workflows/commit/e394dc2988020d5b2a9171329f9b5d06d23df0e9))
+
 ## [1.7.8](https://github.com/kolvin/workflows/compare/v1.7.7...v1.7.8) (2022-12-12)
 
 
