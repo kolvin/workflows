@@ -23,6 +23,9 @@ run-name: Deploy ${{ inputs.working-directory }} by @${{ github.actor }}
 jobs:
   run:
     runs-on: ubuntu-latest
+    outputs:
+      validate: ${{ steps.validate.outputs.validate }}
+      plan: ${{ steps.plan.outputs.plan }}
     permissions:
       contents: read
       id-token: write
@@ -60,12 +63,12 @@ jobs:
             **/.Terragrunt.lock.hcl
       - name: terragrunt validate
         id: validate
-        run: terragrunt validate
+        run: echo "validate=$(terragrunt validate)" >> $GITHUB_OUTPUT
         working-directory: ${{ inputs.working-directory }}
       - name: terragrunt plan
         if: github.event_name == 'pull_request'
         id: plan
-        run: terragrunt plan
+        run: echo "plan=$(terragrunt plan)" >> $GITHUB_OUTPUT
         continue-on-error: true
         working-directory: ${{ inputs.working-directory }}
       - name: Update Pull Request
@@ -74,6 +77,15 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            })
+            const botComment = comments.find(comment => {
+              return comment.user.type === 'Bot' && comment.body.includes('Terragrunt Format and Style')
+            })
+
             const output = `#### Terragrunt Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terragrunt Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terragrunt Plan 📖\`${{ steps.plan.outcome }}\`
@@ -83,19 +95,29 @@ jobs:
 
             \`\`\`\n
             Terragrunt\n
-            ${{ steps.plan.outputs.stdout }}
+            ${{ steps.plan.outputs.plan }}
             \`\`\`
 
             </details>
 
-            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
+            // 3. If we have a comment, update it, otherwise create a new one
+            if (botComment) {
+              github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: output
+              })
+            } else {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: output
+              })
+            }
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
