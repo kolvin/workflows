@@ -1,3 +1,10 @@
+## [1.7.10](https://github.com/kolvin/workflows/compare/v1.7.9...v1.7.10) (2022-12-14)
+
+
+### Bug Fixes
+
+* **terragrunt:** write terragrunt output to env var ([719c908](https://github.com/kolvin/workflows/commit/719c908d09c6b6e9b105692c3fd5510bc1d4be41))
+
 ## [1.7.9](https://github.com/kolvin/workflows/compare/v1.7.8...v1.7.9) (2022-12-13)
 
 
