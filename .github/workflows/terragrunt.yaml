@@ -62,9 +62,8 @@ jobs:
         id: validate
         run: |
           echo 'validate<<EOF' >> $GITHUB_ENV
-          terragrunt validate >> $GITHUB_ENV
+          echo "$(terragrunt validate)" >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-          echo "${{ env.validate }}"
         working-directory: ${{ inputs.working-directory }}
       - name: terragrunt plan
         if: github.event_name == 'pull_request'
@@ -73,7 +72,6 @@ jobs:
           echo 'plan<<EOF' >> $GITHUB_ENV
           terragrunt plan >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-          echo "${{ env.plan }}"
         continue-on-error: true
         working-directory: ${{ inputs.working-directory }}
       - name: Update Pull Request
@@ -93,14 +91,22 @@ jobs:
 
             const output = `#### Terragrunt Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terragrunt Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terragrunt Plan 📖\`${{ steps.plan.outcome }}\`
             #### Terragrunt Validation 🤖\`${{ steps.validate.outcome }}\`
 
+            <details><summary>Validation Output</summary>
+
+            \`\`\`\n
+            ${{ env.validate }}
+            \`\`\`
+
+            </details>
+
+            #### Terragrunt Plan 📖\`${{ steps.plan.outcome }}\`
             <details><summary>Show Plan</summary>
 
             \`\`\`\n
             Terragrunt\n
-            ${{ steps.plan.outputs.plan }}
+            ${{ env.plan }}
             \`\`\`
 
             </details>
