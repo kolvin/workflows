@@ -3,7 +3,7 @@
 ## Contents
 
 - [Workflows](#workflows)
-- [Key Features](#key-features)
+- [Workflows](#workflows-1)
 - [Todo](#todo)
 - [Contributing](#contributing)
 - [License](#license)
@@ -19,35 +19,33 @@
 
 A collection of reusable github CI/CD workflows. Used personally across my own repositories, DRY as fuck
 
-# Key Features
-- automate lint process of a terraform module using [fmt](https://www.terraform.io/cli/commands/fmt)+[validate](https://www.terraform.io/cli/commands/validate)
-- automate generation of module documention using [terraform-docs](https://github.com/terraform-docs/terraform-docs)
+# Workflows
+- [terragrunt](./.github/workflows/terragrunt.yaml) workflow providing [lint](https://www.terraform.io/cli/commands/lint), [plan](https://www.terraform.io/cli/commands/plan), [apply](https://www.terraform.io/cli/commands/apply) via OIDC AWS Auth with PR comments on terragrunt validate + plan outputs
+- [terraform module](./.github/workflows/terraform-module-lint.yaml) workflow providing [fmt](https://www.terraform.io/cli/commands/fmt)+[validate](https://www.terraform.io/cli/commands/validate)
+- [terraform module documentation](./.github/workflows/terraform-docs.yaml) workflow
   - Requires GPG secret key + Passphrase as secrets 
-- automate release mangment using [semantic-release](https://github.com/semantic-release/semantic-release)
+- [Automated releases](./.github/workflows/automated-semver.yaml) via [semantic-release](https://github.com/semantic-release/semantic-release)
   - Requires GPG secret key + Passphrase as secrets 
-- workflow to configure [terragrunt](https://terragrunt.gruntwork.io/) using [terraform](https://www.terraform.io/use-cases/infrastructure-as-code) 
-- workflow to terragrunt [lint](https://www.terraform.io/cli/commands/lint)
-- workflow to terragrunt [plan](https://www.terraform.io/cli/commands/plan)
-- workflow to terragrunt [apply](https://www.terraform.io/cli/commands/apply)
 
+---
 
 # Todo
 - [x] README.md
 - [x] reusable terragrunt install
 - [x] reusable terragrunt lint
 - [x] reusable terragrunt plan
-- [x] reusable terragrunt applly
-- [x] reusable terraform install
+- [x] reusable terragrunt apply
 - [x] reusable terraform module lint
 - [x] automate terraform module docs
-- [x] automate release managment
+- [x] automate release management
 
+---
 
 # Contributing
 
 Open a PR/Issue
 
-
+---
 # License
 
 The MIT License (MIT) 2017 - [Calvin Taylor](https://github.com/kolvin). Please have a look at the [LICENSE.md](LICENSE.md) for more details.
