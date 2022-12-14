@@ -23,9 +23,6 @@ run-name: Deploy ${{ inputs.working-directory }} by @${{ github.actor }}
 jobs:
   run:
     runs-on: ubuntu-latest
-    outputs:
-      validate: ${{ steps.validate.outputs.validate }}
-      plan: ${{ steps.plan.outputs.plan }}
     permissions:
       contents: read
       id-token: write
@@ -60,15 +57,23 @@ jobs:
           key: ${{ github.sha }}-terragrunt-cache
           path: |
             **/.terragrunt-cache/**
-            **/.Terragrunt.lock.hcl
+            **/.terragrunt.lock.hcl
       - name: terragrunt validate
         id: validate
-        run: echo "validate=$(terragrunt validate)" >> $GITHUB_OUTPUT
+        run: |
+          echo 'validate<<EOF' >> $GITHUB_ENV
+          terragrunt validate >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+          echo "${{ env.validate }}"
         working-directory: ${{ inputs.working-directory }}
       - name: terragrunt plan
         if: github.event_name == 'pull_request'
         id: plan
-        run: echo "plan=$(terragrunt plan)" >> $GITHUB_OUTPUT
+        run: |
+          echo 'plan<<EOF' >> $GITHUB_ENV
+          terragrunt plan >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+          echo "${{ env.plan }}"
         continue-on-error: true
         working-directory: ${{ inputs.working-directory }}
       - name: Update Pull Request
