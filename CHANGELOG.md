@@ -1,3 +1,10 @@
+## [1.7.12](https://github.com/kolvin/workflows/compare/v1.7.11...v1.7.12) (2022-12-14)
+
+
+### Bug Fixes
+
+* **terragrunt:** set no-colour arg for terragrunt plan+validate ([8777822](https://github.com/kolvin/workflows/commit/877782275f20c5eee00eaab9b23866f9a5cb3038))
+
 ## [1.7.11](https://github.com/kolvin/workflows/compare/v1.7.10...v1.7.11) (2022-12-14)
 
 
