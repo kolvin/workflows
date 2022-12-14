@@ -95,7 +95,7 @@ jobs:
 
             <details><summary>Validation Output</summary>
 
-            \`\`\`\n
+            \`\`\`
             ${{ env.validate }}
             \`\`\`
 
@@ -104,8 +104,7 @@ jobs:
             #### Terragrunt Plan 📖\`${{ steps.plan.outcome }}\`
             <details><summary>Show Plan</summary>
 
-            \`\`\`\n
-            Terragrunt\n
+            \`\`\`
             ${{ env.plan }}
             \`\`\`
 
