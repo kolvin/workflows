@@ -42,40 +42,27 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::${{ inputs.target-account-id }}:role/${{ inputs.ci-role-name }}
           aws-region: ${{ inputs.target-region }}
-      - name: terragrunt fmt
+      - name: Terragrunt fmt
         id: fmt
         run: terragrunt hclfmt --terragrunt-check || ! cowsay "you fucked up"
         working-directory: ${{ inputs.working-directory }}
-      - name: terragrunt init
+      - name: Terragrunt init
         id: init
-        run: |
-          terragrunt init
-          pwd
-          ls -la
+        run: terragrunt init
         working-directory: ${{ inputs.working-directory }}
-      - name: cache build
-        id: cache-build
-        uses: actions/cache@v3
-        with:
-          key: ${{ runner.os }}-build-${{ hashFiles('**/.terraform.lock.hcl') }}
-          path: |
-            ${{ inputs.working-directory }}/.terragrunt-cache/**
-      - name: terragrunt validate
+      - name: Terragrunt validate
         id: validate
-        run: |
-          echo 'validate<<EOF' >> $GITHUB_ENV
-          echo "$(terragrunt validate -no-color)" >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-          pwd
-          ls -la
+        run: terragrunt validate -no-color | tee /tmp/validate.txt
         working-directory: ${{ inputs.working-directory }}
-      - name: terragrunt plan
-        if: github.event_name == 'pull_request'
+      - name: Terragrunt plan
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main' && github.event_name == 'push'
         id: plan
-        run: |
-          echo 'plan<<EOF' >> $GITHUB_ENV
-          echo "$(terragrunt plan -no-color)" >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+        run: terragrunt plan
+        continue-on-error: true
+        working-directory: ${{ inputs.working-directory }}
+      - name: Terragrunt show
+        id: show
+        run: terragrunt show -no-color tgplan.out | tee /tmp/plan.txt
         continue-on-error: true
         working-directory: ${{ inputs.working-directory }}
       - name: Update Pull Request
@@ -93,56 +80,68 @@ jobs:
               return comment.user.type === 'Bot' && comment.body.includes('Terragrunt Format and Style')
             })
 
-            const output = `#### Terragrunt Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-            #### Terragrunt Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terragrunt Validation 🤖\`${{ steps.validate.outcome }}\`
+            function chunkSubstr(str, size) {
+              const numChunks = Math.ceil(str.length / size)
+              const chunks = new Array(numChunks)
+              for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
+                chunks[i] = str.substr(o, size)
+              }
+              return chunks
+            }
 
-            <details><summary>Validation Output</summary>
+            const fs = require("fs");
+            const validate = fs.readFileSync("/tmp/validate.txt", "utf8");
+            const plan = fs.readFileSync("/tmp/plan.txt", "utf8");
 
-            \`\`\`
-            ${{ env.validate }}
-            \`\`\`
+            // Handle large terraform plans
+            let plans = chunkSubstr(plan, 65536);
 
-            </details>
+            for (let i = 0; i < plans.length; i++) {
+              const output = `### ${{ inputs.plan-title }} Part # ${i + 1}
+              #### Terragrunt Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+              #### Terragrunt Initialization ⚙️\`${{ steps.init.outcome }}\`
+              #### Terragrunt Validation 🤖\`${{ steps.validate.outcome }}\`
 
-            #### Terragrunt Plan 📖\`${{ steps.plan.outcome }}\`
-            <details><summary>Show Plan</summary>
+              <details><summary>Validation Output</summary>
 
-            \`\`\`
-            ${{ env.plan }}
-            \`\`\`
+              \`\`\`
+              ${validate}
+              \`\`\`
 
-            </details>
+              </details>
 
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ inputs.working-directory }}\`, Workflow: \`${{ github.workflow }}\`*`;
+              #### Terragrunt Plan 📖\`${{ steps.plan.outcome }}\`
+              <details><summary>Show Plan</summary>
 
-            // 3. If we have a comment, update it, otherwise create a new one
-            if (botComment) {
-              github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: botComment.id,
-                body: output
-              })
-            } else {
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: output
-              })
+              \`\`\`
+              ${plans[i]}
+              \`\`\`
+
+              </details>
+
+              *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ inputs.working-directory }}\`, Workflow: \`${{ github.workflow }}\`*`;
+
+              // 3. If we have a comment, update it, otherwise create a new one
+              if (botComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: botComment.id,
+                  body: output
+                })
+              } else {
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: output
+                })
+              }
             }
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
-      - name: cache plan
-        id: cache-plan
-        uses: actions/cache@v3
-        with:
-          key: terragrunt-plan
-          path: |
-            **/tgplan.out
-      - name: terragrunt apply
+      - name: Terragrunt apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         id: apply
         run: terragrunt apply
