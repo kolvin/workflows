@@ -48,7 +48,10 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
       - name: terragrunt init
         id: init
-        run: terragrunt init
+        run: |
+          terragrunt init
+          pwd
+          ls -la
         working-directory: ${{ inputs.working-directory }}
       - name: cache build
         id: cache-build
@@ -56,13 +59,15 @@ jobs:
         with:
           key: ${{ runner.os }}-build-${{ hashFiles('**/.terraform.lock.hcl') }}
           path: |
-            **/.terragrunt-cache/**
+            ${{ inputs.working-directory }}/.terragrunt-cache/**
       - name: terragrunt validate
         id: validate
         run: |
           echo 'validate<<EOF' >> $GITHUB_ENV
           echo "$(terragrunt validate -no-color)" >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
+          pwd
+          ls -la
         working-directory: ${{ inputs.working-directory }}
       - name: terragrunt plan
         if: github.event_name == 'pull_request'
