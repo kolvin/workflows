@@ -38,13 +38,13 @@ jobs:
           tfenv install
           tgswitch
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           role-to-assume: arn:aws:iam::${{ inputs.target-account-id }}:role/${{ inputs.ci-role-name }}
           aws-region: ${{ inputs.target-region }}
       - name: Terragrunt fmt
         id: fmt
-        run: terragrunt hclfmt --terragrunt-check || ! cowsay "you fucked up"
+        run: terragrunt hclfmt --terragrunt-check || ! cowsay "eww your formatting is fucked up"
         working-directory: ${{ inputs.working-directory }}
       - name: Terragrunt init
         id: init
