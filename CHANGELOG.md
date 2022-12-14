@@ -1,3 +1,10 @@
+## [1.7.13](https://github.com/kolvin/workflows/compare/v1.7.12...v1.7.13) (2022-12-14)
+
+
+### Bug Fixes
+
+* **terragrunt:** set working-dir in PR comment stage ([044faea](https://github.com/kolvin/workflows/commit/044faea8c31c5bc7d213dc979dc098c6a53c69b1))
+
 ## [1.7.12](https://github.com/kolvin/workflows/compare/v1.7.11...v1.7.12) (2022-12-14)
 
 
