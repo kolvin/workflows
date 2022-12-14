@@ -62,7 +62,7 @@ jobs:
         id: validate
         run: |
           echo 'validate<<EOF' >> $GITHUB_ENV
-          echo "$(terragrunt validate)" >> $GITHUB_ENV
+          echo "$(terragrunt validate -no-color)" >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
         working-directory: ${{ inputs.working-directory }}
       - name: terragrunt plan
@@ -70,7 +70,7 @@ jobs:
         id: plan
         run: |
           echo 'plan<<EOF' >> $GITHUB_ENV
-          terragrunt plan >> $GITHUB_ENV
+          echo "$(terragrunt plan -no-color)" >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
         continue-on-error: true
         working-directory: ${{ inputs.working-directory }}
