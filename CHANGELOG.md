@@ -1,3 +1,15 @@
+# [1.8.0](https://github.com/kolvin/workflows/compare/v1.7.16...v1.8.0) (2022-12-14)
+
+
+### Bug Fixes
+
+* **terragrunt:** terragrunt cache ([c65c78c](https://github.com/kolvin/workflows/commit/c65c78c624732ebe47425a25da4b00e62067a1db))
+
+
+### Features
+
+* **terragrunt:** use newer version of node for AWS Auth image ([a0a5e29](https://github.com/kolvin/workflows/commit/a0a5e293a9dfa95808d4fdcae5037c6410e76d7b))
+
 ## [1.7.16](https://github.com/kolvin/workflows/compare/v1.7.15...v1.7.16) (2022-12-14)
 
 
