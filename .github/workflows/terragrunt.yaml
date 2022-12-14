@@ -56,8 +56,8 @@ jobs:
         with:
           key: ${{ github.sha }}-terragrunt-cache
           path: |
-            **/.terragrunt-cache/**
-            **/.terragrunt.lock.hcl
+            .terragrunt-cache/**
+            .terragrunt.lock.hcl
       - name: terragrunt validate
         id: validate
         run: |
@@ -136,8 +136,7 @@ jobs:
         uses: actions/cache@v3
         with:
           key: ${{ github.sha }}-terragrunt-plan
-          path: |
-            **/tgplan.out
+          path: tgplan.out
       - name: terragrunt apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         id: apply
