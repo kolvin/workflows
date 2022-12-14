@@ -1,3 +1,10 @@
+## [1.7.11](https://github.com/kolvin/workflows/compare/v1.7.10...v1.7.11) (2022-12-14)
+
+
+### Bug Fixes
+
+* **terragrunt:** reference validate+plan value in PR comment ([bce99ba](https://github.com/kolvin/workflows/commit/bce99baf021275d28b5ae7c3fd931611ad7db062))
+
 ## [1.7.10](https://github.com/kolvin/workflows/compare/v1.7.9...v1.7.10) (2022-12-14)
 
 
